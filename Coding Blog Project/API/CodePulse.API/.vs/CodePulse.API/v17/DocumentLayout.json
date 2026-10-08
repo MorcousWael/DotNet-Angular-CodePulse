@@ -1,0 +1,140 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|d:\\courses\\.net\\coding blog project\\api\\codepulse.api\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|solutionrelative:controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|d:\\courses\\.net\\coding blog project\\api\\codepulse.api\\repositories\\implementation\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|solutionrelative:repositories\\implementation\\icategoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|d:\\courses\\.net\\coding blog project\\api\\codepulse.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|d:\\courses\\.net\\coding blog project\\api\\codepulse.api\\repositories\\interface\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|solutionrelative:repositories\\interface\\categoryrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|d:\\courses\\.net\\coding blog project\\api\\codepulse.api\\models\\dto\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|solutionrelative:models\\dto\\categorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|d:\\courses\\.net\\coding blog project\\api\\codepulse.api\\models\\domain\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|solutionrelative:models\\domain\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|d:\\courses\\.net\\coding blog project\\api\\codepulse.api\\models\\dto\\creatcategorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0F12286F-ECD5-4CD0-8F73-3E50DCC7B84A}|CodePulse.API.csproj|solutionrelative:models\\dto\\creatcategorydto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAABAAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-05T15:28:27.492Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CategoryRepository.cs",
+              "DocumentMoniker": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Repositories\\Interface\\CategoryRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interface\\CategoryRepository.cs",
+              "ToolTip": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Repositories\\Interface\\CategoryRepository.cs",
+              "RelativeToolTip": "Repositories\\Interface\\CategoryRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-06T23:07:32.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ICategoryRepository.cs",
+              "DocumentMoniker": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Repositories\\Implementation\\ICategoryRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Implementation\\ICategoryRepository.cs",
+              "ToolTip": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Repositories\\Implementation\\ICategoryRepository.cs",
+              "RelativeToolTip": "Repositories\\Implementation\\ICategoryRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-06T23:06:05.35Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CategoryDto.cs",
+              "DocumentMoniker": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Models\\DTO\\CategoryDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTO\\CategoryDto.cs",
+              "ToolTip": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Models\\DTO\\CategoryDto.cs",
+              "RelativeToolTip": "Models\\DTO\\CategoryDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-06T22:52:13.584Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Category.cs",
+              "DocumentMoniker": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Models\\Domain\\Category.cs",
+              "RelativeDocumentMoniker": "Models\\Domain\\Category.cs",
+              "ToolTip": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Models\\Domain\\Category.cs",
+              "RelativeToolTip": "Models\\Domain\\Category.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-06T22:46:40.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CreatCategoryDto.cs",
+              "DocumentMoniker": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Models\\DTO\\CreatCategoryDto.cs",
+              "RelativeDocumentMoniker": "Models\\DTO\\CreatCategoryDto.cs",
+              "ToolTip": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Models\\DTO\\CreatCategoryDto.cs",
+              "RelativeToolTip": "Models\\DTO\\CreatCategoryDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-06T22:43:39.147Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CategoriesController.cs",
+              "DocumentMoniker": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Controllers\\CategoriesController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CategoriesController.cs",
+              "ToolTip": "D:\\Courses\\.net\\Coding Blog Project\\API\\CodePulse.API\\Controllers\\CategoriesController.cs",
+              "RelativeToolTip": "Controllers\\CategoriesController.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwB4AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-05T15:53:43.34Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
