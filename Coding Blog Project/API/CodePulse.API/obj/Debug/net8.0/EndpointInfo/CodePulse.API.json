@@ -34,6 +34,16 @@
             "description": "Success"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
       }
     },
     "/WeatherForecast": {

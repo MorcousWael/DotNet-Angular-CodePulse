@@ -152,3 +152,4 @@ D:\Courses\.net\Coding Blog Project\API\CodePulse.API\obj\Debug\net8.0\refint\Co
 D:\Courses\.net\Coding Blog Project\API\CodePulse.API\obj\Debug\net8.0\CodePulse.API.pdb
 D:\Courses\.net\Coding Blog Project\API\CodePulse.API\obj\Debug\net8.0\CodePulse.API.genruntimeconfig.cache
 D:\Courses\.net\Coding Blog Project\API\CodePulse.API\obj\Debug\net8.0\ref\CodePulse.API.dll
+D:\Courses\.net\Coding Blog Project\API\CodePulse.API\obj\Debug\net8.0\CodePulse.API.sourcelink.json

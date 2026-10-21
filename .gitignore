@@ -1,0 +1,10 @@
+# .NET Build outputs & caches
+[Oo]bj/
+[Bb]in/
+*.user
+*.suo
+.vs/
+
+# OS generated files
+.DS_Store
+Thumbs.db

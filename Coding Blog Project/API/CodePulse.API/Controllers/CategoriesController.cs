@@ -1,7 +1,6 @@
 ﻿using CodePulse.API.Data;
 using CodePulse.API.Models.Domain;
 using CodePulse.API.Models.DTO;
-using CodePulse.API.Repositories.Implementation;
 using CodePulse.API.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,5 +36,21 @@ namespace CodePulse.API.Controllers
 
             return Ok(response);
         }
+        //[HttpGet]
+        // GET : https://localhost:7014/api/Categories
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var categories = await categoryRepository.GetAllAsync();
+            // map domain model tp DTO
+            var response = new List<CategoryDto>();
+            foreach (var category in categories)
+            {
+                response.Add( new CategoryDto { Id= category.Id, Name= category.Name, UrlHandle = category.UrlHandle });
+            }
+            return Ok(response);
+        }
+        
     }
 }
