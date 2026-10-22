@@ -1,0 +1,107 @@
+<!-- Page Header with Always-Visible Add Button -->
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+  <div>
+    <h1 class="text-2xl font-bold text-white tracking-tight">Categories</h1>
+    <p class="text-sm text-slate-400 mt-0.5">Manage your blog categories and URL handles.</p>
+  </div>
+
+  <!-- Add Category Button (Always visible on the right) -->
+  <button
+    type="button"
+    (click)="openAddModal()"
+    class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-sm transition shadow-lg shadow-sky-500/20 shrink-0"
+  >
+    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+    </svg>
+    Add Category
+  </button>
+</div>
+
+<!-- Table Container -->
+<div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+  <table class="w-full text-left border-collapse">
+    <tbody class="divide-y divide-slate-800/70">
+      @if (categoriesResource.isLoading()) {
+        <!-- Loading Skeleton Rows -->
+        @for (item of [1, 2, 3]; track item) {
+          <tr class="animate-pulse border-b border-slate-800/70">
+            <td class="px-6 py-4">
+              <div class="h-3 w-16 bg-slate-800 rounded"></div>
+            </td>
+            <td class="px-6 py-4">
+              <div class="h-4 w-32 bg-slate-800 rounded"></div>
+            </td>
+            <td class="px-6 py-4">
+              <div class="h-5 w-24 bg-slate-800 rounded-md"></div>
+            </td>
+            <td class="px-6 py-4 text-right">
+              <div class="h-8 w-8 bg-slate-800 rounded-lg ml-auto"></div>
+            </td>
+          </tr>
+        }
+      } @else if (categoriesResource.error()) {
+        <!-- Error State -->
+        <tr>
+          <td colspan="4" class="px-6 py-12 text-center text-red-400">
+            Failed to load categories from server.
+          </td>
+        </tr>
+      } @else {
+        <!-- Data State -->
+        @for (category of categoriesResource.value() ?? []; track category.id) {
+          <tr class="hover:bg-slate-800/40 transition-colors">
+            <!-- ID -->
+            <td class="px-6 py-4 font-mono text-xs text-slate-400 whitespace-nowrap">
+              {{ category.id }}
+            </td>
+            <!-- Name -->
+            <td class="px-6 py-4 font-medium text-white whitespace-nowrap">
+              {{ category.name }}
+            </td>
+            <!-- URL Handle -->
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span
+                class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-800 text-sky-400 border border-slate-700/60"
+              >
+                /{{ category.urlHandle }}
+              </span>
+            </td>
+            <!-- Actions -->
+            <td class="px-6 py-4 text-right whitespace-nowrap">
+              <a
+                [routerLink]="['/admin/categories/edit', category.id]"
+                title="Edit Category"
+                class="inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-sky-400 hover:bg-slate-800 transition"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                  />
+                </svg>
+              </a>
+            </td>
+          </tr>
+        } @empty {
+          <!-- Empty State -->
+          <tr>
+            <td colspan="4" class="px-6 py-12 text-center text-slate-500">
+              No categories found in database. Click
+              <strong class="text-sky-400">Add Category</strong> to create one.
+            </td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Add Category Modal Component -->
+<app-add-category
+  [isOpen]="isAddModalOpen"
+  (close)="closeAddModal()"
+  (categoryAdded)="onCategoryCreated()"
+></app-add-category>
