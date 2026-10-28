@@ -2,19 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../enviroments/environment';
-
+import { CreateCategoryRequest, Category } from '../models/category-model';
 // Request DTO matching the POST body
-export interface CreateCategoryRequest {
-  name: string;
-  urlHandle: string;
-}
-
-// Response DTO returned by the .NET API
-export interface Category {
-  id: string;
-  name: string;
-  urlHandle: string;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +24,21 @@ export class CategoryService {
    */
   getAllCategories() {
     return httpResource<Category[]>(() => environment.apiBaseUrl + '/api/Categories');
+  }
+  /**
+   * Fetches a single category by its ID for editing
+   */
+  getCategoryById(id: string | number): Observable<Category> {
+    return this.http.get<Category>(`${environment.apiBaseUrl}/api/categories/${id}`);
+  }
+
+  /**
+   * Sends a PUT request to update an existing category
+   */
+  updateCategory(id: string | number, model: CreateCategoryRequest): Observable<Category> {
+    return this.http.put<Category>(`${environment.apiBaseUrl}/api/categories/${id}`, model);
+  }
+  deleteCategory(id: string | number): Observable<any> {
+    return this.http.delete(`${environment.apiBaseUrl}/api/Categories/${id}`);
   }
 }

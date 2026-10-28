@@ -1,1 +1,155 @@
-<p>edit-category works!</p>
+@if (isOpen) {
+  <!-- Modal Backdrop -->
+  <div
+    class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto animate-fade-in"
+    (click)="onClose()"
+  >
+    <!-- Modal Content Card -->
+    <div
+      class="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl w-full max-w-md p-6 relative"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div>
+          <h2 class="text-lg font-bold text-white">Edit Category</h2>
+          <p class="text-xs text-slate-400">Update category details and URL handle.</p>
+        </div>
+        <button
+          type="button"
+          (click)="onClose()"
+          class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Loading State -->
+      @if (isLoadingCategory()) {
+        <div class="py-12 flex flex-col items-center justify-center text-slate-400 gap-3">
+          <svg class="w-8 h-8 animate-spin text-sky-400" fill="none" viewBox="0 0 24 24">
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          <span class="text-sm">Fetching category data...</span>
+        </div>
+      } @else {
+        <!-- Error Banner -->
+        @if (errorMessage()) {
+          <div
+            class="mt-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2"
+          >
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>{{ errorMessage() }}</span>
+          </div>
+        }
+
+        <!-- Form -->
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="mt-4 space-y-4">
+          <!-- Category Name Field -->
+          <div>
+            <label
+              class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5"
+            >
+              Category Name
+            </label>
+            <input
+              type="text"
+              formControlName="name"
+              placeholder="e.g. Technology"
+              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition"
+            />
+            @if (editForm.get('name')?.touched && editForm.get('name')?.invalid) {
+              <p class="text-xs text-red-400 mt-1">Name is required (at least 2 characters).</p>
+            }
+          </div>
+
+          <!-- URL Handle Field -->
+          <div>
+            <label
+              class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5"
+            >
+              URL Handle
+            </label>
+            <div class="relative flex items-center">
+              <span class="absolute left-3.5 text-slate-500 text-sm font-mono">/</span>
+              <input
+                type="text"
+                formControlName="urlHandle"
+                placeholder="technology"
+                class="w-full pl-7 pr-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sky-400 font-mono text-sm placeholder-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition"
+              />
+            </div>
+            @if (editForm.get('urlHandle')?.touched && editForm.get('urlHandle')?.invalid) {
+              <p class="text-xs text-red-400 mt-1">
+                Handle must contain only lowercase letters, numbers, and hyphens.
+              </p>
+            }
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-800 mt-6">
+            <button
+              type="button"
+              (click)="onClose()"
+              class="px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 text-sm font-medium transition"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              [disabled]="editForm.invalid || isSubmitting()"
+              class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-950 font-semibold text-sm transition shadow-lg shadow-sky-500/20"
+            >
+              @if (isSubmitting()) {
+                <svg class="w-4 h-4 mr-2 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Saving...
+              } @else {
+                Save Changes
+              }
+            </button>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+}

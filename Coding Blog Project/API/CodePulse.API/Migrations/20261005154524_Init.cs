@@ -23,7 +23,7 @@ namespace CodePulse.API.Migrations
                     UrlHandle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublishedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsVisable = table.Column<bool>(type: "bit", nullable: false)
+                    IsVisible = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

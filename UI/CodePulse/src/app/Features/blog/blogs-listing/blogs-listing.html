@@ -1,0 +1,205 @@
+<div class="p-6 max-w-7xl mx-auto">
+  <!-- Success Notification Banner -->
+  @if (showSuccessBanner()) {
+    <div
+      class="mb-6 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-sm flex items-center justify-between shadow-lg"
+    >
+      <div class="flex items-center gap-3">
+        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <span><strong>Success!</strong> Your new blog post has been published successfully.</span>
+      </div>
+      <button
+        type="button"
+        (click)="showSuccessBanner.set(false)"
+        class="text-emerald-400 hover:text-emerald-300 p-1"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+  }
+
+  <!-- Page Header with Always-Visible Add Blog Button -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-white tracking-tight">Blogs</h1>
+      <p class="text-sm text-slate-400 mt-0.5">Manage your published blog posts and handles.</p>
+    </div>
+
+    <!-- Add Blog Button -->
+    <a
+      routerLink="/admin/blogs/add"
+      class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-sm transition shadow-lg shadow-sky-500/20 shrink-0"
+    >
+      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+      </svg>
+      Add Blog
+    </a>
+  </div>
+
+  <!-- Table Container -->
+  <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead
+          class="bg-slate-950/60 border-b border-slate-800 text-xs uppercase tracking-wider text-slate-400 font-semibold"
+        >
+          <tr>
+            <th class="px-6 py-4">ID</th>
+            <th class="px-6 py-4">Image</th>
+            <th class="px-6 py-4">Title / Handle</th>
+            <th class="px-6 py-4">Description</th>
+            <th class="px-6 py-4">Author</th>
+            <th class="px-6 py-4">Categories</th>
+            <th class="px-6 py-4">Published Date</th>
+            <th class="px-6 py-4 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-800/70">
+          @if (blogsResource.isLoading()) {
+            <!-- Loading Skeletons (adjust colspan to 8) -->
+            @for (item of [1, 2, 3]; track item) {
+              <tr class="animate-pulse border-b border-slate-800/70">
+                <td class="px-6 py-4"><div class="h-3 w-12 bg-slate-800 rounded"></div></td>
+                <td class="px-6 py-4"><div class="h-10 w-14 bg-slate-800 rounded-lg"></div></td>
+                <td class="px-6 py-4">
+                  <div class="h-4 w-36 bg-slate-800 rounded mb-2"></div>
+                  <div class="h-3 w-20 bg-slate-800 rounded"></div>
+                </td>
+                <td class="px-6 py-4"><div class="h-4 w-48 bg-slate-800 rounded"></div></td>
+                <td class="px-6 py-4"><div class="h-4 w-20 bg-slate-800 rounded"></div></td>
+                <td class="px-6 py-4"><div class="h-4 w-28 bg-slate-800 rounded"></div></td>
+                <!-- Skeleton for Categories -->
+                <td class="px-6 py-4"><div class="h-4 w-24 bg-slate-800 rounded"></div></td>
+                <td class="px-6 py-4 text-right">
+                  <div class="h-8 w-16 bg-slate-800 rounded-lg ml-auto"></div>
+                </td>
+              </tr>
+            }
+          } @else if (blogsResource.error()) {
+            <tr>
+              <td colspan="8" class="px-6 py-12 text-center text-red-400">
+                Failed to load blogs from server.
+              </td>
+            </tr>
+          } @else {
+            @for (blog of blogsResource.value() ?? []; track blog.id) {
+              <tr class="hover:bg-slate-800/40 transition-colors">
+                <!-- ID -->
+                <td class="px-6 py-4 font-mono text-xs text-slate-400 whitespace-nowrap">
+                  {{ blog.id }}
+                </td>
+                <!-- Thumbnail -->
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <img
+                    [src]="blog.featuredImageUrl"
+                    [alt]="blog.title"
+                    class="w-14 h-10 object-cover rounded-lg border border-slate-700/60 bg-slate-950"
+                    (error)="$any($event.target).src = 'https://placehold.co/100x70?text=No+Image'"
+                  />
+                </td>
+                <!-- Title / Handle -->
+                <td class="px-6 py-4">
+                  <div class="font-medium text-white max-w-xs truncate" [title]="blog.title">
+                    {{ blog.title }}
+                  </div>
+                  <div class="mt-1">
+                    <span
+                      class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-mono bg-slate-800 text-sky-400 border border-slate-700/60"
+                    >
+                      /{{ blog.urlHandle }}
+                    </span>
+                  </div>
+                </td>
+                <!-- Description -->
+                <td
+                  class="px-6 py-4 text-sm text-slate-300 max-w-xs truncate"
+                  [title]="blog.shortDescription"
+                >
+                  {{ blog.shortDescription }}
+                </td>
+                <!-- Author -->
+                <td class="px-6 py-4 text-sm text-slate-300 whitespace-nowrap">
+                  {{ blog.author }}
+                </td>
+
+                <!-- Categories Badges Column -->
+                <td class="px-6 py-4">
+                  <div class="flex flex-wrap gap-1.5 max-w-xs">
+                    @for (category of blog.categories; track category.id) {
+                      <span
+                        class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-slate-800 text-purple-300 border border-slate-700/50"
+                      >
+                        {{ category.name }}
+                      </span>
+                    } @empty {
+                      <span class="text-xs text-slate-500 italic">No categories</span>
+                    }
+                  </div>
+                </td>
+
+                <!-- Published Date -->
+                <td class="px-6 py-4 text-sm text-slate-400 whitespace-nowrap">
+                  {{ blog.publishedDate | date: 'mediumDate' }}
+                </td>
+                <!-- Actions -->
+                <td class="px-6 py-4 text-right whitespace-nowrap space-x-1">
+                  <a
+                    [routerLink]="['/admin/blogs/edit', blog.id]"
+                    title="Edit Blog"
+                    class="inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-sky-400 hover:bg-slate-800 transition"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      />
+                    </svg>
+                  </a>
+                  <button
+                    type="button"
+                    (click)="deleteBlog(blog.id, blog.title)"
+                    title="Delete Blog"
+                    class="inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-red-400 hover:bg-slate-800 transition"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="8" class="px-6 py-12 text-center text-slate-500">
+                  No blogs found. Click <strong class="text-sky-400">Add Blog</strong> to create
+                  one.
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

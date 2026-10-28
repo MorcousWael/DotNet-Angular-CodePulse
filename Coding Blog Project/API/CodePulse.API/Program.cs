@@ -17,6 +17,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IBlogPostRepository, BlogPostRepository>();
+
 
 // 1. ADD CORS SERVICE HERE
 builder.Services.AddCors(options =>

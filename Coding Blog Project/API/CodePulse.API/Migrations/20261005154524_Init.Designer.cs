@@ -43,7 +43,7 @@ namespace CodePulse.API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsVisable")
+                    b.Property<bool>("IsVisible")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("PublishedDate")
