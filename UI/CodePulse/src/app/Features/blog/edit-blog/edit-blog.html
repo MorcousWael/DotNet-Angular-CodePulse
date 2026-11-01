@@ -1,0 +1,368 @@
+<div class="p-6 max-w-4xl mx-auto">
+  <!-- Page Header -->
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-white tracking-tight">Edit Blog Post</h1>
+      <p class="text-sm text-slate-400 mt-0.5">Update the details below to modify your article.</p>
+    </div>
+
+    <!-- Back Button -->
+    <a
+      routerLink="/admin/blogs"
+      class="inline-flex items-center px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-medium transition border border-slate-700"
+    >
+      <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 19l-7-7m0 0l7-7m-7 7h18"
+        />
+      </svg>
+      Back to Blogs
+    </a>
+  </div>
+
+  <!-- Error Banner -->
+  @if (errorMessage()) {
+    <div
+      class="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-3"
+    >
+      <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <span>{{ errorMessage() }}</span>
+    </div>
+  }
+
+  <!-- Loading State for Initial Fetch -->
+  @if (isLoadingBlog()) {
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-12 text-center">
+      <svg class="w-8 h-8 mx-auto text-sky-500 animate-spin mb-3" fill="none" viewBox="0 0 24 24">
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        ></circle>
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        ></path>
+      </svg>
+      <p class="text-sm text-slate-400">Loading blog details...</p>
+    </div>
+  } @else {
+    <!-- Form Card -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6 sm:p-8">
+      <form [formGroup]="blogForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Title & URL Handle Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Title -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+              Blog Title
+            </label>
+            <input
+              type="text"
+              formControlName="title"
+              placeholder="e.g. Getting Started with Angular Signals"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition"
+            />
+            @if (blogForm.get('title')?.touched && blogForm.get('title')?.invalid) {
+              <p class="text-xs text-red-400 mt-1.5">Title is required (at least 3 characters).</p>
+            }
+          </div>
+
+          <!-- URL Handle -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+              URL Handle
+            </label>
+            <div class="relative flex items-center">
+              <span class="absolute left-3.5 text-slate-500 text-sm font-mono">/</span>
+              <input
+                type="text"
+                formControlName="urlHandle"
+                placeholder="getting-started-with-angular-signals"
+                class="w-full pl-7 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-sky-400 font-mono text-sm placeholder-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition"
+              />
+            </div>
+            @if (blogForm.get('urlHandle')?.touched && blogForm.get('urlHandle')?.invalid) {
+              <p class="text-xs text-red-400 mt-1.5">
+                Only lowercase letters, numbers, and hyphens allowed.
+              </p>
+            }
+          </div>
+        </div>
+
+        <!-- Author & Featured Image URL Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Author -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+              Author
+            </label>
+            <input
+              type="text"
+              formControlName="author"
+              placeholder="e.g. John Doe"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition"
+            />
+            @if (blogForm.get('author')?.touched && blogForm.get('author')?.invalid) {
+              <p class="text-xs text-red-400 mt-1.5">Author name is required.</p>
+            }
+          </div>
+
+          <!-- Featured Image URL with Live Thumbnail Preview -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                Featured Image URL
+              </label>
+              @if (imageUrlValue()) {
+                <span class="text-[11px] text-sky-400 font-medium">Live Preview Active</span>
+              }
+            </div>
+
+            <input
+              type="url"
+              formControlName="featuredImageUrl"
+              placeholder="https://example.com/image.jpg"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition"
+            />
+
+            @if (
+              blogForm.get('featuredImageUrl')?.touched && blogForm.get('featuredImageUrl')?.invalid
+            ) {
+              <p class="text-xs text-red-400 mt-1.5">Valid HTTP/HTTPS image URL is required.</p>
+            }
+
+            <!-- Live Image Preview Box -->
+            @if (imageUrlValue()) {
+              <div
+                class="mt-3 relative rounded-xl overflow-hidden border border-slate-800 bg-slate-950 p-2 flex items-center gap-4"
+              >
+                <div
+                  class="w-20 h-14 rounded-lg bg-slate-900 border border-slate-800 overflow-hidden shrink-0"
+                >
+                  <img
+                    [src]="imageUrlValue()"
+                    alt="Featured image preview"
+                    class="w-full h-full object-cover"
+                    #previewImg
+                    (error)="
+                      previewImg.src = 'https://placehold.co/100x70/1e293b/ef4444?text=Broken+URL'
+                    "
+                  />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="text-xs font-medium text-slate-300 truncate">Thumbnail Preview</p>
+                  <p class="text-[11px] text-slate-500 truncate mt-0.5 font-mono">
+                    {{ imageUrlValue() }}
+                  </p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Published Date & Visibility Toggle Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          <!-- Published Date Picker -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+              Published Date
+            </label>
+            <input
+              type="date"
+              formControlName="publishedDate"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition [color-scheme:dark]"
+            />
+            @if (blogForm.get('publishedDate')?.touched && blogForm.get('publishedDate')?.invalid) {
+              <p class="text-xs text-red-400 mt-1.5">Published date is required.</p>
+            }
+          </div>
+
+          <!-- Is Visible Checkbox Toggle -->
+          <div class="pt-6">
+            <label
+              class="relative flex items-center cursor-pointer gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 transition"
+            >
+              <input
+                type="checkbox"
+                formControlName="isVisible"
+                class="w-5 h-5 rounded bg-slate-900 border-slate-700 text-sky-500 focus:ring-sky-500 focus:ring-offset-slate-950 transition cursor-pointer"
+              />
+              <div class="flex flex-col">
+                <span class="text-sm font-semibold text-white">Is Visible</span>
+                <span class="text-xs text-slate-400">Make this blog post public on the site</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Short Description -->
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+            Short Description
+          </label>
+          <textarea
+            formControlName="shortDescription"
+            rows="2"
+            placeholder="A brief summary of what this article is about..."
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition"
+          ></textarea>
+          @if (
+            blogForm.get('shortDescription')?.touched && blogForm.get('shortDescription')?.invalid
+          ) {
+            <p class="text-xs text-red-400 mt-1.5">Short description is required.</p>
+          }
+        </div>
+
+        <!-- Content Section with Live Markdown Preview -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+              Content (Markdown Supported)
+            </label>
+
+            <!-- Tab Switcher for Smaller Screens / Preference -->
+            <div class="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
+              <button
+                type="button"
+                (click)="activeTab.set('edit')"
+                [class.bg-slate-800]="activeTab() === 'edit'"
+                [class.text-white]="activeTab() === 'edit'"
+                class="px-3 py-1 rounded-lg text-xs font-medium text-slate-400 transition"
+              >
+                Write
+              </button>
+              <button
+                type="button"
+                (click)="activeTab.set('preview')"
+                [class.bg-slate-800]="activeTab() === 'preview'"
+                [class.text-white]="activeTab() === 'preview'"
+                class="px-3 py-1 rounded-lg text-xs font-medium text-slate-400 transition"
+              >
+                Live Preview
+              </button>
+            </div>
+          </div>
+
+          <!-- Categories Multi-Select Section -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+              Categories <span class="text-sky-400">*</span>
+            </label>
+
+            <div
+              class="p-4 rounded-xl bg-slate-950 border border-slate-800 max-h-48 overflow-y-auto space-y-2"
+            >
+              @if (categoriesResource.isLoading()) {
+                <p class="text-xs text-slate-500 italic py-2 text-center">Loading categories...</p>
+              } @else if (categoriesResource.error()) {
+                <p class="text-xs text-red-400 py-2 text-center">Failed to load categories.</p>
+              } @else {
+                @for (category of availableCategories(); track category.id) {
+                  <label
+                    class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-900/80 cursor-pointer transition"
+                  >
+                    <input
+                      type="checkbox"
+                      [value]="category.id"
+                      [checked]="isCategorySelected(category.id)"
+                      (change)="onCategoryChange(category.id, $event)"
+                      class="w-4 h-4 rounded bg-slate-900 border-slate-700 text-sky-600 focus:ring-sky-500 focus:ring-offset-slate-950"
+                    />
+                    <span class="text-sm text-slate-200 font-medium">{{ category.name }}</span>
+                    <span class="text-xs text-slate-500 font-mono ml-auto"
+                      >/{{ category.urlHandle }}</span
+                    >
+                  </label>
+                } @empty {
+                  <p class="text-xs text-slate-500 italic py-2 text-center">
+                    No categories available.
+                  </p>
+                }
+              }
+            </div>
+
+            @if (blogForm.get('categories')?.touched && blogForm.get('categories')?.invalid) {
+              <p class="text-xs text-red-400 mt-1.5">Please select at least one category.</p>
+            }
+          </div>
+
+          <!-- Split Grid Container -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <!-- Editor Pane -->
+            <div [class.hidden]="activeTab() === 'preview'" class="lg:block">
+              <textarea
+                formControlName="content"
+                rows="12"
+                placeholder="# Write your markdown content here..."
+                class="w-full p-4 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition font-mono resize-y"
+              ></textarea>
+            </div>
+
+            <!-- Live Preview Pane -->
+            <div [class.hidden]="activeTab() === 'edit'" class="lg:block">
+              <div
+                class="w-full h-[310px] lg:h-full p-4 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-200 text-sm overflow-y-auto prose prose-invert max-w-none"
+                [innerHTML]="renderedContent()"
+              ></div>
+            </div>
+          </div>
+
+          @if (blogForm.get('content')?.touched && blogForm.get('content')?.invalid) {
+            <p class="text-xs text-red-400 mt-1">Content is required.</p>
+          }
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center justify-end gap-3 pt-6 border-t border-slate-800">
+          <a
+            routerLink="/admin/blogs"
+            class="px-5 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 text-sm font-medium transition"
+          >
+            Cancel
+          </a>
+          <button
+            type="submit"
+            [disabled]="blogForm.invalid || isSubmitting()"
+            class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 disabled:opacity-50 disabled:cursor-not-allowed text-slate-950 font-semibold text-sm transition shadow-lg shadow-sky-500/20"
+          >
+            @if (isSubmitting()) {
+              <svg class="w-4 h-4 mr-2 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Saving...
+            } @else {
+              Save Changes
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

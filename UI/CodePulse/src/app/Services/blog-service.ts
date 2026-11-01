@@ -14,6 +14,19 @@ export class BlogService {
   getAllBlogs() {
     return httpResource<Blog[]>(() => `${environment.apiBaseUrl}/api/BlogPosts`);
   }
+  // Accepts a signal getter function () => string | null
+  getBlogById(idSignal: () => string | null) {
+    return httpResource<Blog>(() => {
+      const id = idSignal();
+      // If ID is null/empty, httpResource automatically defers the request
+      if (!id) return undefined;
+      return `${environment.apiBaseUrl}/api/BlogPosts/${id}`;
+    });
+  }
+
+  updateBlog(id: string, blogData: any) {
+    return this.http.put(`${environment.apiBaseUrl}/api/BlogPosts/${id}`, blogData);
+  }
   /**
    * Sends a POST request to create a new blog post
    */
