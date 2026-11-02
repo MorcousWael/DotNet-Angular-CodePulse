@@ -3,16 +3,26 @@ import { CategoryListComponent } from './Features/categories-listing/categories-
 import { AddBlog } from './Features/blog/add-blog/add-blog';
 import { BlogsListing } from './Features/blog/blogs-listing/blogs-listing';
 import { EditBlog } from './Features/blog/edit-blog/edit-blog';
+import { Home } from './Features/home/home';
+import { BlogDetails } from './Features/blog/blog-details/blog-details';
 
 export const routes: Routes = [
   // Redirect default root path '/' to categories list
   {
     path: '',
-    redirectTo: 'admin/categories',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'home',
+    component: Home,
+  },
+  {
+    path: 'blogs/:id',
+    component: BlogDetails,
+  },
 
-  // Main Categories Listing Route
+  // Admin routes
   {
     path: 'admin/categories',
     component: CategoryListComponent,
@@ -33,6 +43,6 @@ export const routes: Routes = [
   // Fallback wildcard route (optional: for 404s)
   {
     path: '**',
-    redirectTo: 'admin/categories',
+    redirectTo: 'admin/home',
   },
 ];

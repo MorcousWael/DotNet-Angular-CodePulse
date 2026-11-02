@@ -1,0 +1,120 @@
+<div class="min-h-screen bg-slate-950 text-slate-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <!-- Back to Home Button -->
+    <div class="mb-8">
+      <a
+        routerLink="/home"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-slate-400 hover:text-sky-400 transition"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+        Back to Articles
+      </a>
+    </div>
+
+    <!-- Loading State -->
+    @if (isLoading()) {
+      <div class="flex justify-center items-center py-32">
+        <svg class="w-8 h-8 animate-spin text-sky-400" fill="none" viewBox="0 0 24 24">
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+      </div>
+    }
+
+    <!-- Error State -->
+    @if (hasError()) {
+      <div class="text-center py-20 bg-red-500/10 border border-red-500/20 rounded-2xl">
+        <p class="text-red-400 font-medium">
+          Could not load this blog post. It may have been removed.
+        </p>
+      </div>
+    }
+
+    <!-- Blog Content Container -->
+    @if (!isLoading() && !hasError() && blog(); as currentBlog) {
+      <article class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
+        <!-- Featured Image Banner -->
+        <div class="relative h-72 sm:h-96 w-full bg-slate-950">
+          <img
+            [src]="currentBlog.featuredImageUrl"
+            [alt]="currentBlog.title"
+            class="w-full h-full object-cover"
+            #bannerImg
+            (error)="bannerImg.src = 'https://placehold.co/1200x600/1e293b/ef4444?text=No+Image'"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"
+          ></div>
+        </div>
+
+        <div class="p-6 sm:p-10">
+          <!-- Categories & Date -->
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div class="flex flex-wrap gap-2">
+              @for (cat of currentBlog.categories; track cat.id) {
+                <span
+                  class="px-3 py-1 text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20 rounded-lg"
+                >
+                  {{ cat.name }}
+                </span>
+              }
+            </div>
+            <span class="text-sm text-slate-400">
+              Published on {{ currentBlog.publishedDate | date: 'longDate' }}
+            </span>
+          </div>
+
+          <!-- Title -->
+          <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+            {{ currentBlog.title }}
+          </h1>
+
+          <!-- Author Info -->
+          <div class="flex items-center gap-3 pb-8 mb-8 border-b border-slate-800">
+            <div
+              class="w-10 h-10 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold text-sm"
+            >
+              {{ currentBlog.author.charAt(0).toUpperCase() }}
+            </div>
+            <div>
+              <p class="text-sm font-medium text-white">{{ currentBlog.author }}</p>
+              <p class="text-xs text-slate-400">Author & Contributor</p>
+            </div>
+          </div>
+
+          <!-- Short Description Callout -->
+          <div
+            class="p-5 rounded-2xl bg-slate-950 border border-slate-800 text-slate-300 font-medium text-base mb-8"
+          >
+            {{ currentBlog.shortDescription }}
+          </div>
+
+          <!-- Main Article HTML Content -->
+          <!-- Using innerHTML to render HTML content safely stored from the editor -->
+          <div
+            class="prose prose-invert max-w-none text-slate-300 leading-relaxed space-y-4"
+            [innerHTML]="currentBlog.content"
+          ></div>
+        </div>
+      </article>
+    }
+  </div>
+</div>

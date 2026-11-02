@@ -6,9 +6,10 @@ import { BlogService } from '../../../Services/blog-service';
 import { marked } from 'marked';
 import { Category } from '../../../models/category-model';
 import { CategoryService } from '../../../Services/category-service';
+import { ImageUploader } from '../../../core/components/image-uploader/image-uploader';
 @Component({
   selector: 'app-add-blog',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, ImageUploader],
   templateUrl: './add-blog.html',
   styles: ``,
 })

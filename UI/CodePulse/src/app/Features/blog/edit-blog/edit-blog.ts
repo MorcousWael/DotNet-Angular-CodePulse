@@ -4,11 +4,12 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } fr
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BlogService } from '../../../Services/blog-service';
 import { CategoryService } from '../../../Services/category-service';
+import { ImageUploader } from '../../../core/components/image-uploader/image-uploader';
 
 @Component({
   selector: 'app-edit-blog',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, ImageUploader],
   templateUrl: './edit-blog.html',
 })
 export class EditBlog implements OnInit {
