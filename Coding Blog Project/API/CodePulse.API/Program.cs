@@ -67,7 +67,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("CodePulseCorsPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:4200") // Your Angular frontend origin
+        policy.WithOrigins("https://morcous-wael.vercel.app","http://localhost:4200") // Your Angular frontend origin
               .AllowAnyHeader()
               .AllowAnyMethod(); // Permits POST, PUT, DELETE, GET, OPTIONS
     });
@@ -82,8 +82,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 // 2. ADD CORS MIDDLEWARE HERE (Must be before UseAuthorization and MapControllers)
 app.UseCors("CodePulseCorsPolicy");
 

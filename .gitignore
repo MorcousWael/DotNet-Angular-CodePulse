@@ -14,6 +14,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/publish
 
 # Node
 /node_modules
