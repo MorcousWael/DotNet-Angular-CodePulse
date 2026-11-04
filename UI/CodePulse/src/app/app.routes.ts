@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { CategoryListComponent } from './Features/categories-listing/categories-listing';
-import { AddBlog } from './Features/blog/add-blog/add-blog';
-import { BlogsListing } from './Features/blog/blogs-listing/blogs-listing';
-import { EditBlog } from './Features/blog/edit-blog/edit-blog';
-import { Home } from './Features/home/home';
-import { BlogDetails } from './Features/blog/blog-details/blog-details';
+import { CategoryListComponent } from './features/categories-listing/categories-listing';
+import { AddBlog } from './features/blog/add-blog/add-blog';
+import { BlogsListing } from './features/blog/blogs-listing/blogs-listing';
+import { EditBlog } from './features/blog/edit-blog/edit-blog';
+import { Home } from './features/home/home';
+import { BlogDetails } from './features/blog/blog-details/blog-details';
 import { Login } from './core/Auth/login/login';
 import { Register } from './core/Auth/register/register';
 import { writerGuard } from './core/Guards/auth.guard';
