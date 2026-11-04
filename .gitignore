@@ -38,6 +38,12 @@ yarn-error.log
 !.vscode/mcp.json
 .history/*
 
+# Configuration & Secrets
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+appsettings.*.json
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/
