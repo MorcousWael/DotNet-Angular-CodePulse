@@ -17,12 +17,12 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CodePulseConnectionString"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MorcousWaelDbConnectionString"));
 });
 
 builder.Services.AddDbContext<AuthDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CodePulseConnectionString"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MorcousWaelDbConnectionString"));
 });
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
