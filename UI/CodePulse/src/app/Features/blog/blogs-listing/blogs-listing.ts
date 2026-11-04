@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
-import { BlogService } from '../../../services/blog-service';
+import { BlogService } from '../../../services/blog.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({

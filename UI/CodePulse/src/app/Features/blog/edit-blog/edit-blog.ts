@@ -2,8 +2,8 @@ import { Component, OnInit, inject, signal, computed, effect } from '@angular/co
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { BlogService } from '../../../services/blog-service';
-import { CategoryService } from '../../../services/category-service';
+import { BlogService } from '../../../services/blog.service';
+import { CategoryService } from '../../../services/category.service';
 import { ImageUploader } from '../../../core/components/image-uploader/image-uploader';
 
 @Component({
