@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://localhost:7014', // Replace with your local .NET API
+  apiBaseUrl: 'http://morcouswael.somee.com', // Replace with your local .NET API
 };
