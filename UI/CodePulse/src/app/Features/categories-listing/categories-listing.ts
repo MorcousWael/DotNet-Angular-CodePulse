@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CategoryService } from '../../Services/category-service';
+import { CategoryService } from '../../services/category-service';
 import { AddCategoryComponent } from '../add-category/add-category';
 import { EditCategoryComponent } from '../edit-category/edit-category';
 import { Category } from '../../models/category-model';

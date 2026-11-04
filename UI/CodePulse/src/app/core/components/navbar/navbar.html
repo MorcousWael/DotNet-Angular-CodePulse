@@ -9,7 +9,7 @@
           class="flex items-center space-x-2 text-xl font-bold tracking-tight text-white hover:text-sky-400 transition-colors"
         >
           <span class="bg-sky-500 text-slate-950 p-1.5 rounded-lg font-black text-sm">CP</span>
-          <span>Code<span class="text-sky-400">Pulse</span></span>
+          <span>Morcous<span class="text-sky-400">Wael</span></span>
         </a>
 
         <!-- Desktop Nav Links -->
@@ -23,64 +23,96 @@
             Home
           </a>
 
-          <!-- Admin Dropdown Menu -->
-          <div class="relative">
-            <button
-              (click)="toggleAdminMenu()"
-              type="button"
-              class="flex items-center space-x-1.5 px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition focus:outline-none"
-            >
-              <span>Admin</span>
-              <svg
-                class="w-4 h-4 transition-transform duration-200"
-                [ngClass]="{ 'rotate-180': isAdminOpen }"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          <!-- Admin Dropdown Menu (Only visible if user is a Writer) -->
+          @if (authService.isWriter()) {
+            <div class="relative">
+              <button
+                (click)="toggleAdminMenu()"
+                type="button"
+                class="flex items-center space-x-1.5 px-3 py-2 rounded-md text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition focus:outline-none"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
+                <span>Admin</span>
+                <svg
+                  class="w-4 h-4 transition-transform duration-200"
+                  [ngClass]="{ 'rotate-180': isAdminOpen }"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
 
-            <!-- Dropdown Menu items -->
-            <div
-              *ngIf="isAdminOpen"
-              class="absolute left-0 mt-2 w-48 bg-slate-800 rounded-lg shadow-lg border border-slate-700 py-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
-            >
-              <a
-                routerLink="/admin/categories"
-                (click)="isAdminOpen = false"
-                routerLinkActive="bg-slate-700/60 text-sky-400"
-                class="block px-4 py-2.5 text-sm text-slate-200 hover:bg-slate-700 hover:text-white transition"
+              <!-- Dropdown Menu items -->
+              <div
+                *ngIf="isAdminOpen"
+                class="absolute left-0 mt-2 w-48 bg-slate-800 rounded-lg shadow-lg border border-slate-700 py-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
               >
-                Categories
-              </a>
-              <a
-                routerLink="/admin/blogs"
-                (click)="isAdminOpen = false"
-                routerLinkActive="bg-slate-700/60 text-sky-400"
-                class="block px-4 py-2.5 text-sm text-slate-200 hover:bg-slate-700 hover:text-white transition"
-              >
-                Blogs
-              </a>
+                <a
+                  routerLink="/admin/categories"
+                  (click)="isAdminOpen = false"
+                  routerLinkActive="bg-slate-700/60 text-sky-400"
+                  class="block px-4 py-2.5 text-sm text-slate-200 hover:bg-slate-700 hover:text-white transition"
+                >
+                  Categories
+                </a>
+                <a
+                  routerLink="/admin/blogs"
+                  (click)="isAdminOpen = false"
+                  routerLinkActive="bg-slate-700/60 text-sky-400"
+                  class="block px-4 py-2.5 text-sm text-slate-200 hover:bg-slate-700 hover:text-white transition"
+                >
+                  Blogs
+                </a>
+              </div>
             </div>
-          </div>
+          }
         </div>
       </div>
 
-      <!-- Right Section: Optional Actions / Login Placeholder -->
+      <!-- Right Section: User Status -->
       <div class="hidden md:flex items-center space-x-4">
-        <a
-          routerLink="/login"
-          class="text-sm font-medium px-4 py-2 rounded-lg bg-sky-500 text-slate-950 hover:bg-sky-400 transition shadow"
-        >
-          Sign In
-        </a>
+        @if (authService.isLoggedIn()) {
+          <div class="flex items-center gap-3">
+            <span class="text-sm text-slate-300">
+              Hello, <strong class="text-sky-400">Morcous Wael</strong>
+            </span>
+
+            <!-- Optional badge if they are a Writer -->
+            @if (authService.isWriter()) {
+              <span
+                class="text-[10px] font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20 px-2 py-0.5 rounded"
+                >Writer</span
+              >
+            }
+
+            <button
+              type="button"
+              (click)="authService.logout()"
+              class="text-sm font-medium px-4 py-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition border border-red-500/20 cursor-pointer"
+            >
+              Sign Out
+            </button>
+          </div>
+        } @else {
+          <a
+            routerLink="/login"
+            class="text-sm font-medium px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white transition border border-slate-700"
+          >
+            Sign In
+          </a>
+          <a
+            routerLink="/register"
+            class="text-sm font-medium px-4 py-2 rounded-lg bg-sky-500 text-slate-950 hover:bg-sky-400 transition shadow"
+          >
+            Register
+          </a>
+        }
       </div>
 
       <!-- Mobile Hamburger Button -->
@@ -124,28 +156,60 @@
       Home
     </a>
 
-    <!-- Mobile Admin Section -->
-    <div class="pt-2 pb-1 border-t border-slate-800">
-      <div class="px-3 py-1 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-        Admin
+    <!-- Mobile Admin Section (Only if Writer) -->
+    @if (authService.isWriter()) {
+      <div class="pt-2 pb-1 border-t border-slate-800">
+        <div class="px-3 py-1 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+          Admin
+        </div>
+        <a
+          routerLink="/admin/categories"
+          (click)="isMobileMenuOpen = false"
+          class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800"
+        >
+          Categories
+        </a>
+        <a
+          routerLink="/admin/blogs"
+          (click)="isMobileMenuOpen = false"
+          class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800"
+        >
+          Blogs
+        </a>
       </div>
-      <a
-        routerLink="/admin/categories"
-        (click)="isMobileMenuOpen = false"
-        class="block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800"
-      >
-        Categories
-      </a>
-    </div>
+    }
 
-    <div class="pt-4">
-      <a
-        routerLink="/login"
-        (click)="isMobileMenuOpen = false"
-        class="block w-full text-center px-4 py-2 rounded-lg bg-sky-500 text-slate-950 font-medium hover:bg-sky-400"
-      >
-        Sign In
-      </a>
+    <!-- Mobile Auth Section -->
+    <div class="pt-4 border-t border-slate-800">
+      @if (authService.isLoggedIn()) {
+        <div class="px-3 py-2 text-sm text-slate-300 mb-2">
+          Signed in as <strong class="text-sky-400">Morcous Wael</strong>
+        </div>
+        <button
+          type="button"
+          (click)="authService.logout(); isMobileMenuOpen = false"
+          class="block w-full text-center px-4 py-2 rounded-lg bg-red-500/10 text-red-400 font-medium hover:bg-red-500/20 border border-red-500/20"
+        >
+          Sign Out
+        </button>
+      } @else {
+        <div class="grid grid-cols-2 gap-2">
+          <a
+            routerLink="/login"
+            (click)="isMobileMenuOpen = false"
+            class="block text-center px-4 py-2 rounded-lg bg-slate-800 text-slate-200 font-medium hover:bg-slate-700 border border-slate-700"
+          >
+            Sign In
+          </a>
+          <a
+            routerLink="/register"
+            (click)="isMobileMenuOpen = false"
+            class="block text-center px-4 py-2 rounded-lg bg-sky-500 text-slate-950 font-medium hover:bg-sky-400"
+          >
+            Register
+          </a>
+        </div>
+      }
     </div>
   </div>
 </nav>

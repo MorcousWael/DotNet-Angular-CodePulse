@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { BlogService } from '../../../Services/blog-service';
+import { BlogService } from '../../../services/blog-service';
 
 @Component({
   selector: 'app-blog-details',

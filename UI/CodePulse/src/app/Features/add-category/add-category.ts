@@ -1,7 +1,7 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CategoryService } from '../../Services/category-service';
+import { CategoryService } from '../../services/category-service';
 
 export interface CreateCategoryRequest {
   name: string;

@@ -2,10 +2,10 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { BlogService } from '../../../Services/blog-service';
+import { BlogService } from '../../../services/blog-service';
 import { marked } from 'marked';
 import { Category } from '../../../models/category-model';
-import { CategoryService } from '../../../Services/category-service';
+import { CategoryService } from '../../../services/category-service';
 import { ImageUploader } from '../../../core/components/image-uploader/image-uploader';
 @Component({
   selector: 'app-add-blog',

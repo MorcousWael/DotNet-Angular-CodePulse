@@ -10,7 +10,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CategoryService } from '../../Services/category-service'; // Adjust path to your CategoryService
+import { CategoryService } from '../../services/category-service'; // Adjust path to your CategoryService
 import { Category } from '../../models/category-model'; // Adjust path to your Category model
 @Component({
   selector: 'app-edit-category',

@@ -1,7 +1,7 @@
 import { Component, Optional, Self, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { ImageService } from '../../../Services/image-service';
+import { ImageService } from '../../../services/image-service';
 
 @Component({
   selector: 'app-image-uploader',
