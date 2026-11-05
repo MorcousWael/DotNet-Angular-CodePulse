@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'http://morcouswael.somee.com',
+  apiBaseUrl: 'https://morcouswael.somee.com',
 };
